@@ -1,0 +1,194 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 22,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "h_default",
+      "binaryDir": "${sourceDir}/build-${presetName}",
+      "hidden": true,
+      "generator": "Ninja"
+    },
+    {
+      "name": "h_debug",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "h_release",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "h_toolchain-msvc",
+      "hidden": true,
+      "vendor": {
+        "jetbrains.com/clion": {
+          "toolchain": "MSVC"
+        }
+      }
+    },
+    {
+      "name": "h_toolchain-clang",
+      "hidden": true,
+      "vendor": {
+        "jetbrains.com/clion": {
+          "toolchain": "CLANG"
+        }
+      }
+    },
+    {
+      "name": "h_toolchain-gcc",
+      "hidden": true,
+      "vendor": {
+        "jetbrains.com/clion": {
+          "toolchain": "GCC"
+        }
+      }
+    },
+    {
+      "name": "msvc-debug",
+      "displayName": "Debug build with MSVC compiler",
+      "inherits": [
+        "h_default",
+        "h_debug",
+        "h_toolchain-msvc"
+      ],
+      "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "cl"
+      }
+    },
+    {
+      "name": "msvc-release",
+      "displayName": "Optimized build with MSVC compiler",
+      "inherits": [
+        "h_default",
+        "h_release",
+        "h_toolchain-msvc"
+      ],
+      "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "cl"
+      }
+    },
+    {
+      "name": "clang-win-debug",
+      "displayName": "Debug build with Clang compiler as MSVC frontend",
+      "inherits": [
+        "h_default",
+        "h_debug",
+        "h_toolchain-clang"
+      ],
+      "vendor": {
+        "jetbrains.com/clion": {
+          "toolchain": "CLANG-CL"
+        }
+      },
+      "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "clang-cl"
+      }
+    },
+    {
+      "name": "clang-win-coverage",
+      "displayName": "Build to generate coverage results",
+      "inherits": [
+        "clang-win-debug"
+      ],
+      "cacheVariables": {
+        "CMAKE_CXX_FLAGS": "-fcoverage-mapping -fprofile-instr-generate",
+        "COVERAGE_ENABLED": true
+      }
+    },
+    {
+      "name": "clang-win-release",
+      "displayName": "Optimized build with Clang compiler as MSVC frontend",
+      "inherits": [
+        "h_default",
+        "h_release",
+        "h_toolchain-clang"
+      ],
+      "vendor": {
+        "jetbrains.com/clion": {
+          "toolchain": "CLANG-CL"
+        }
+      },
+      "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "clang-cl"
+      }
+    },
+    {
+      "name": "clang-linux-debug",
+      "displayName": "Debug build with Clang compiler as GCC frontend",
+      "inherits": [
+        "h_default",
+        "h_debug",
+        "h_toolchain-clang"
+      ],
+      "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "clang++"
+      }
+    },
+    {
+      "name": "clang-linux-release",
+      "displayName": "Optimized build with Clang compiler as GCC frontend",
+      "inherits": [
+        "h_default",
+        "h_release",
+        "h_toolchain-clang"
+      ],
+      "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "clang++"
+      }
+    },
+    {
+      "name": "gcc-debug",
+      "displayName": "Debug build with GCC compiler",
+      "inherits": [
+        "h_default",
+        "h_debug",
+        "h_toolchain-gcc"
+      ],
+      "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "g++"
+      }
+    },
+    {
+      "name": "gcc-release",
+      "displayName": "Optmized build with GCC compiler",
+      "inherits": [
+        "h_default",
+        "h_release",
+        "h_toolchain-gcc"
+      ],
+      "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "g++"
+      }
+    },
+    {
+      "name": "gcc-tracy",
+      "inherits": [
+        "gcc-release"
+      ],
+      "cacheVariables": {
+        "USE_TRACY_PROFILER": "ON",
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+    {
+      "name": "clang-linux-tracy",
+      "inherits": [
+        "clang-linux-release"
+      ],
+      "cacheVariables": {
+        "USE_TRACY_PROFILER": "ON",
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    }
+  ]
+}
